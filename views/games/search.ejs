@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Games | GamePilot</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include('../partials/header') %>
+
+  <main class="container">
+
+    <div class="page-heading">
+      <h1>Search Games</h1>
+      <p>Filter by genre, minimum rating, or both.</p>
+    </div>
+
+    <!-- Search form -->
+    <form method="GET" action="/games/search" class="search-form">
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <select name="genre" id="genre">
+          <option value="">All genres</option>
+          <% genres.forEach(function(g) { %>
+            <option value="<%= g %>" <%= genre === g ? 'selected' : '' %>><%= g %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="minRating">Min Rating</label>
+        <input
+          type="number"
+          name="minRating"
+          id="minRating"
+          min="0" max="5" step="0.1"
+          placeholder="e.g. 4.0"
+          value="<%= minRating %>"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a href="/games/search" class="btn btn-outline">Clear</a>
+    </form>
+
+    <!-- Results count -->
+    <div class="results-bar">
+      <span><strong><%= results.length %></strong> game<%= results.length !== 1 ? 's' : '' %> found</span>
+      <% if (genre || minRating) { %>
+        <span class="text-muted">
+          Filters:
+          <% if (genre)     { %> Genre: <strong><%= genre %></strong> <% } %>
+          <% if (minRating) { %> Min rating: <strong><%= minRating %></strong> <% } %>
+        </span>
+      <% } %>
+    </div>
+
+    <!-- Results grid -->
+    <% if (results.length === 0) { %>
+      <p class="text-muted">No games matched your search. <a href="/games/search">Clear filters</a>.</p>
+    <% } else { %>
+      <div class="games-grid">
+        <% results.slice(0, 60).forEach(function(game) { %>
+          <div class="game-card">
+            <img src="<%= game.imageUrl %>" alt="<%= game.title %>" loading="lazy" />
+            <div class="card-body">
+              <div class="card-title">
+                <a href="/games/<%= game.id %>"><%= game.title %></a>
+              </div>
+              <div class="tags">
+                <% game.genres.slice(0, 2).forEach(function(g) { %>
+                  <span class="tag"><%= g %></span>
+                <% }) %>
+              </div>
+              <div class="card-meta"><%= game.releaseDate %></div>
+              <div class="card-rating">
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+                <%= game.rating.score %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>

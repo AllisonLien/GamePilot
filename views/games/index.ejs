@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Games | GamePilot</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include('../partials/header') %>
+
+  <main class="container">
+
+    <div class="page-heading">
+      <h1>Browse Games</h1>
+      <p><%= pagination.totalRecords %> titles in the catalogue</p>
+    </div>
+
+    <!-- Game card grid -->
+    <div class="games-grid">
+      <% records.forEach(function(game) { %>
+        <div class="game-card">
+          <img src="<%= game.imageUrl %>" alt="<%= game.title %>" loading="lazy" />
+          <div class="card-body">
+            <div class="card-title">
+              <a href="/games/<%= game.id %>"><%= game.title %></a>
+            </div>
+            <div class="tags">
+              <% game.genres.slice(0, 2).forEach(function(genre) { %>
+                <span class="tag"><%= genre %></span>
+              <% }) %>
+            </div>
+            <div class="card-meta"><%= game.releaseDate %></div>
+            <div class="card-rating">
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              <%= game.rating.score %>
+              <span class="text-muted" style="font-weight:400">(<%= game.rating.reviewCount %>)</span>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <% if (pagination.hasPrevPage) { %>
+        <a href="/games?page=<%= pagination.page - 1 %>&perPage=<%= pagination.perPage %>">&larr; Prev</a>
+      <% } else { %>
+        <span class="disabled">&larr; Prev</span>
+      <% } %>
+
+      <span class="current">Page <%= pagination.page %> of <%= pagination.totalPages %></span>
+
+      <% if (pagination.hasNextPage) { %>
+        <a href="/games?page=<%= pagination.page + 1 %>&perPage=<%= pagination.perPage %>">Next &rarr;</a>
+      <% } else { %>
+        <span class="disabled">Next &rarr;</span>
+      <% } %>
+    </div>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>

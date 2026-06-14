@@ -11,48 +11,34 @@ const apiRouter   = require('./routes/api');
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
-// ── middleware 
-app.use(express.json());                            // parse JSON bodies
-app.use(express.urlencoded({ extended: true }));    // parse form bodies
-app.use(express.static(path.join(__dirname, 'public'))); // static files
-app.use(logger);                                    // custom request logger
+// ── middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger);
 
-// ── template engine 
+// ── template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ── home route
+// ── home route — Phase 2: renders views/index.ejs
 app.get('/', (req, res) => {
-  res.send(`
-    <h1>GamePilot 🎮</h1>
-    <p><em>Just PLAY it!</em></p>
-    <p>A game discovery and recommendation platform.</p>
-    <ul>
-      <li><a href="/games">Browse all games (HTML)</a></li>
-      <li><a href="/games/search">Search / filter games</a></li>
-      <li><a href="/api/games?page=1&perPage=10">API — game list (JSON)</a></li>
-      <li><a href="/api/status">API — status check (JSON)</a></li>
-    </ul>
-  `);
+  res.render('index');
 });
 
-// ── routers 
+// ── routers
 app.use('/games', gamesRouter);
 app.use('/api',   apiRouter);
 
-// ── 404 handler 
+// ── 404 handler — Phase 2: renders views/404.ejs
 app.use((req, res) => {
   if (req.path.startsWith('/api')) {
     return res.status(404).json({ error: 'Route not found', path: req.path });
   }
-  res.status(404).send(`
-    <h1>404 — Page Not Found</h1>
-    <p>The route <strong>${req.path}</strong> does not exist.</p>
-    <a href="/">Back to home</a>
-  `);
+  res.status(404).render('404', { id: req.path });
 });
 
-// ── global error handler 
+// ── global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   if (req.path.startsWith('/api')) {
@@ -61,7 +47,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('<h1>500 — Internal Server Error</h1>');
 });
 
-// ── start 
+// ── start
 app.listen(PORT, () => {
   console.log(`GamePilot running at http://localhost:${PORT}`);
 });

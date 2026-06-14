@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= game.title %> | GamePilot</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include('../partials/header') %>
+
+  <main class="container">
+
+    <a href="/games" class="back-link">&#8592; Back to catalogue</a>
+
+    <div class="detail-grid">
+
+      <!-- Cover image -->
+      <div class="detail-cover">
+        <img src="<%= game.imageUrl %>" alt="<%= game.title %>" />
+      </div>
+
+      <!-- Info column -->
+      <div class="detail-info">
+
+        <div>
+          <h1><%= game.title %></h1>
+          <p class="developer">by <%= game.developer.join(', ') %> &mdash; <%= game.releaseDate %></p>
+        </div>
+
+        <!-- Genre tags — clicking a genre goes to search filtered by that genre -->
+        <div class="tags">
+          <% game.genres.forEach(function(genre) { %>
+            <a href="/games/search?genre=<%= encodeURIComponent(genre) %>" class="tag"><%= genre %></a>
+          <% }) %>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="detail-stats">
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--rating-gold);">&#9733; <%= game.rating.score %></div>
+            <div class="stat-label">Rating</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value"><%= game.rating.reviewCount %></div>
+            <div class="stat-label">Reviews</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value"><%= game.communityStats.plays %></div>
+            <div class="stat-label">Plays</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value"><%= game.communityStats.playing %></div>
+            <div class="stat-label">Playing</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value"><%= game.communityStats.backlogs %></div>
+            <div class="stat-label">Backlogs</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value"><%= game.communityStats.wishlist %></div>
+            <div class="stat-label">Wishlist</div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="detail-summary">
+          <%= game.summary %>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>
