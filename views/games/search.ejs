@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Games | GamePilot</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include('../partials/header') %>
+
+  <main class="container">
+
+    <div class="page-heading">
+      <h1>Search Games</h1>
+      <p>Filter by genre, minimum rating, or both.</p>
+    </div>
+
+    <!-- Search form -->
+    <form method="GET" action="/games/search" class="search-form">
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <select name="genre" id="genre">
+          <option value="">All genres</option>
+          <% genres.forEach(function(g) { %>
+            <% if (genre === g) { %>
+            <option value="<%= g %>" selected><%= g %></option>
+            <% } else { %>
+             <option value="<%= g %>"><%= g %></option>
+            <% } %>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="minRating">Min Rating</label>
+        <input
+          type="number"
+          name="minRating"
+          id="minRating"
+          min="0" max="5" step="0.1"
+          placeholder="e.g. 4.0"
+          value="<%= minRating %>"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a href="/games/search" class="btn btn-outline">Clear</a>
+    </form>
+
+    <!-- show the filter result -->
+    <div class="results-bar">
+      <span><strong><%= results.length %></strong> games found</span>
+      <% if (genre || minRating) { %>
+        <span class="text-muted">
+          Filters:
+          <% if (genre)     { %> Genre: <strong><%= genre %></strong> <% } %>
+          <% if (minRating) { %> Min rating: <strong><%= minRating %></strong> <% } %>
+        </span>
+      <% } %>
+    </div>
+
+    <!-- can't find any games -->
+    <% if (results.length === 0) { %>
+      <p class="text-muted">No games matched your search. <a href="/games/search">Clear filters</a>.</p>
+    <% } else { %>
+      <div class="games-grid">
+        <% results.slice(0, 60).forEach(function(game) { %>
+          <div class="game-card">
+            <a href="/games/<%= game.id %>">
+             <img src="<%= game.imageUrl %>" alt="<%= game.title %>" loading="lazy" />
+             </a>           
+              <div class="card-body">
+              <div class="card-title">
+                <a href="/games/<%= game.id %>"><%= game.title %></a>
+              </div>
+              <div class="tags">
+                <% game.genres.slice(0, 2).forEach(function(g) { %>
+                  <span class="tag"><%= g %></span>
+                <% }) %>
+              </div>
+              <div class="card-meta"><%= game.releaseDate %></div>
+              <div class="card-rating">
+                <span style="color: var(--rating-gold);">&#9733;</span> <%= game.rating.score %>              </div>
+               </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>
