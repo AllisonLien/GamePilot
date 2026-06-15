@@ -467,3 +467,44 @@ footer a:hover { color: var(--accent); }
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.error-box {
+  background-color: #ffeaea;
+  border: 1px solid #ff6b6b;
+  color: #c92a2a;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.success-box {
+  background-color: #eafaf1;
+  border: 1px solid #51cf66;
+  color: #2b8a3e;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.add-game-form input[type="text"],
+.add-game-form textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  min-width: 220px;
+  outline: none;
+}
+
+.add-game-form textarea {
+  min-height: 42px;
+  resize: vertical;
+}
+
+.error-box ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
