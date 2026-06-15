@@ -6,7 +6,16 @@
       <li><a href="/">Home</a></li>
       <li><a href="/games">Browse</a></li>
       <li><a href="/games/search">Search</a></li>
-      <li><a href="/api/status">API Status</a></li>
+    <li class="dropdown">
+        <a href="#" class="dropbtn">API Tests ▾</a>
+        <div class="dropdown-content">
+          <a href="/api/status" target="_blank">Server Status</a>
+          <a href="/api/games" target="_blank">All Games (JSON)</a>
+          <a href="/api/games?page=1&perPage=10" target="_blank">Pagination Test</a>
+          <a href="/api/games?genre=Action" target="_blank">Search (Action)</a>
+          <a href="/api/games/1" target="_blank">Single Game (ID: 1)</a>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>

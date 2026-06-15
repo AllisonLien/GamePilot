@@ -5,8 +5,7 @@ const express = require('express');
 const router  = express.Router();
 const { getAllGames, getGameById, filterGames, paginate } = require('../helpers/gameHelper');
 
-// ── GET /api/games?page=1&perPage=10  ────────────────────────────────────────
-// Paginated JSON list. Supports optional genre and minRating filters too.
+// /api/games?page=1&perPage=10  
 router.get('/games', (req, res) => {
   let page    = parseInt(req.query.page)    || 1;
   let perPage = parseInt(req.query.perPage) || 10;
@@ -16,18 +15,20 @@ router.get('/games', (req, res) => {
   if (isNaN(perPage) || perPage < 1) perPage = 10;
   if (perPage > 50)                  perPage = 50;
 
-  // optional filters
-  const { genre, minRating } = req.query;
-  const dataset = (genre || minRating)
-    ? filterGames({ genre, minRating })
-    : getAllGames();
+const { genre, minRating } = req.query;
+let dataset; 
+if (genre || minRating) {
+  dataset = filterGames({ genre, minRating }); 
+} else {
+  dataset = getAllGames();
+}
 
   const { records, pagination } = paginate(dataset, page, perPage);
 
   res.json({ pagination, records });
 });
 
-// ── GET /api/games/:id  ──────────────────────────────────────────────────────
+///api/games/:id
 // Single game as JSON.
 router.get('/games/:id', (req, res) => {
   const game = getGameById(req.params.id);
@@ -39,8 +40,7 @@ router.get('/games/:id', (req, res) => {
   res.json(game);
 });
 
-// ── POST /api/games/suggest  ─────────────────────────────────────────────────
-// Placeholder for Phase 2 — accepts a suggestion but does not persist yet.
+//POST /api/games/suggest 
 router.post('/games/suggest', (req, res) => {
   const { title, genre, rating } = req.body || {};
 
@@ -48,15 +48,14 @@ router.post('/games/suggest', (req, res) => {
     return res.status(400).json({ error: 'Validation failed', message: 'title is required' });
   }
 
-  // Phase 1: mock response (no persistence yet)
+  // Phase 1: mock response 
   res.status(201).json({
     message: 'Suggestion received (mock — persistence added in Phase 2)',
     suggestion: { title, genre, rating },
   });
 });
 
-// ── PUT /api/games/:id  ──────────────────────────────────────────────────────
-// Placeholder update route — simulated in Phase 1, real in Phase 2.
+// /api/games/:id 
 router.put('/games/:id', (req, res) => {
   const game = getGameById(req.params.id);
 
@@ -64,7 +63,7 @@ router.put('/games/:id', (req, res) => {
     return res.status(404).json({ error: 'Game not found', id: req.params.id });
   }
 
-  // Phase 1: simulate update (no file write yet)
+  // 
   const { rating, isActive } = req.body || {};
   const updated = { ...game };
   if (rating  !== undefined) updated.rating.score = parseFloat(rating);
@@ -76,7 +75,7 @@ router.put('/games/:id', (req, res) => {
   });
 });
 
-// ── GET /api/status  ─────────────────────────────────────────────────────────
+//api/status  
 router.get('/status', (req, res) => {
   const games = getAllGames();
   res.json({
