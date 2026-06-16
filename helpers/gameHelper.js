@@ -1,4 +1,8 @@
-const games = require('../data/games.json');
+const fs = require('fs');
+const path = require('path');
+
+const gamesFilePath = path.join(__dirname, '../data/games.json');
+const games = require(gamesFilePath);
 
 /**
  * Returns a page of items plus metadata.
@@ -66,4 +70,17 @@ function getAllGenres() {
   return Array.from(genreSet).sort();
 }
 
-module.exports = { getAllGames, getGameById, filterGames, getAllGenres, paginate };
+function addGame(newGame) {
+  games.push(newGame);
+  fs.writeFileSync(gamesFilePath, JSON.stringify(games, null, 2));
+  return newGame;
+}
+
+module.exports = { 
+  getAllGames, 
+  getGameById, 
+  filterGames, 
+  getAllGenres, 
+  paginate,
+  addGame
+};
