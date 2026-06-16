@@ -35,6 +35,77 @@ router.get('/search', (req, res) => {
   });
 });
 
+// ── GET /games/add  ─────────────────────────────────────────────────────────
+// Show the form for users to suggest/add a new game.
+// This route must stay BEFORE /:id so Express does not treat "add" as an id.
+router.get('/add', (req, res) => {
+  const genres = getAllGenres();
+
+  res.render('games/add', {
+    errors: [],
+    successMessage: '',
+    formData: {},
+    genres
+  });
+});
+
+// POST /games
+router.post('/', (req, res) => {
+
+  const genres = getAllGenres();
+
+  const {
+    title,
+    genre,
+    rating,
+    releaseDate,
+    developer,
+    summary
+  } = req.body;
+
+  const errors = [];
+
+  // title validation
+  if (!title || title.trim() === '') {
+    errors.push('Title is required.');
+  }
+
+  // genre validation
+  if (!genre || genre.trim() === '') {
+    errors.push('Genre is required.');
+  }
+
+  // rating validation
+  const ratingNumber = parseFloat(rating);
+
+  if (!rating || isNaN(ratingNumber)) {
+    errors.push('Rating must be a number.');
+  } else if (ratingNumber < 0 || ratingNumber > 5) {
+    errors.push('Rating must be between 0 and 5.');
+  }
+
+  // validation failed
+  if (errors.length > 0) {
+
+    return res.status(400).render('games/add', {
+      errors,
+      successMessage: '',
+      genres,
+      formData: req.body
+    });
+
+  }
+
+  // validation success
+  res.render('games/add', {
+    successMessage: 'Game suggestion submitted successfully!',
+    errors: [],
+    genres,
+    formData: {}
+  });
+
+});
+
 // ── GET /games/:id  ─────────────────────────────────────────────────────────
 router.get('/:id', (req, res) => {
   const game = getGameById(req.params.id);

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggest a New Game | GamePilot</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include('../partials/header') %>
+
+  <main class="container">
+
+    <div class="page-heading">
+      <h1>Suggest a New Game</h1>
+      <p>Use this form to suggest a game for the GamePilot catalogue.</p>
+    </div>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="error-box">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <% if (successMessage) { %>
+      <div class="success-box">
+        <strong><%= successMessage %></strong>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/games" class="search-form add-game-form">
+      <div class="form-group">
+        <label for="title">Title *</label>
+        <input 
+          type="text" 
+          id="title" 
+          name="title" 
+          value="<%= formData.title || '' %>"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="genre">Genre *</label>
+        <select id="genre" name="genre">
+          <option value="">Select a genre</option>
+          <% genres.forEach(g => { %>
+            <option value="<%= g %>" <%= formData.genre === g ? 'selected' : '' %>>
+              <%= g %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="rating">Rating *</label>
+        <input 
+          type="number" 
+          id="rating" 
+          name="rating" 
+          min="0" 
+          max="5" 
+          step="0.1"
+          value="<%= formData.rating || '' %>"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="releaseDate">Release Date</label>
+        <input 
+          type="text" 
+          id="releaseDate" 
+          name="releaseDate" 
+          placeholder="Example: Feb 25, 2022"
+          value="<%= formData.releaseDate || '' %>"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="developer">Developer</label>
+        <input 
+          type="text" 
+          id="developer" 
+          name="developer" 
+          value="<%= formData.developer || '' %>"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="summary">Summary</label>
+        <textarea id="summary" name="summary"><%= formData.summary || '' %></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit Game Suggestion</button>
+    </form>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>
