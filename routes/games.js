@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { getAllGames, getGameById, filterGames, getAllGenres, paginate } = require('../helpers/gameHelper');
+const { getAllGames, getGameById, filterGames, getAllGenres, paginate, addGame } = require('../helpers/gameHelper');
 
 // GET /games
 router.get('/', (req, res) => {
@@ -75,6 +75,13 @@ router.post('/', (req, res) => {
     errors.push('Genre is required.');
   }
 
+  // release date validation
+  if (!releaseDate || releaseDate.trim() === '') {
+    errors.push('Release Date is required.');
+  } else if (isNaN(Date.parse(releaseDate))) {
+    errors.push('Release Date must be a valid date.');
+  }
+
   // rating validation
   const ratingNumber = parseFloat(rating);
 
@@ -96,13 +103,42 @@ router.post('/', (req, res) => {
 
   }
 
-  // validation success
-  res.render('games/add', {
-    successMessage: 'Game suggestion submitted successfully!',
-    errors: [],
-    genres,
-    formData: {}
-  });
+const formattedReleaseDate = new Date(releaseDate).toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric'
+});
+
+const newGame = {
+  id: getAllGames().length + 1,
+  title: title.trim(),
+  releaseDate: formattedReleaseDate,
+  developer: developer ? [developer.trim()] : ['Unknown'],
+  genres: [genre],
+  rating: {
+    score: ratingNumber,
+    reviewCount: '0'
+  },
+  communityStats: {
+    plays: '0',
+    playing: '0',
+    backlogs: '0',
+    wishlist: '0'
+  },
+  summary: summary && summary.trim() !== '' ? summary.trim() : 'No summary available.',
+  imageUrl: `https://placehold.co/300x400/1a1d2e/6c63ff?text=${encodeURIComponent(title.trim())}`,
+  isActive: true
+};
+
+addGame(newGame);
+
+res.render('games/add', {
+  successMessage: 'Game suggestion submitted successfully and saved to the dataset!',
+  errors: [],
+  genres,
+  formData: {},
+  newGame
+});
 
 });
 

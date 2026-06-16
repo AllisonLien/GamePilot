@@ -487,6 +487,7 @@ footer a:hover { color: var(--accent); }
 }
 
 .add-game-form input[type="text"],
+.add-game-form input[type="date"],
 .add-game-form textarea {
   background: var(--bg);
   border: 1px solid var(--border);
@@ -496,6 +497,16 @@ footer a:hover { color: var(--accent); }
   font-size: 0.9rem;
   min-width: 220px;
   outline: none;
+}
+
+.add-game-form input[type="date"]:focus,
+.add-game-form input[type="text"]:focus,
+.add-game-form textarea:focus {
+  border-color: var(--accent);
+}
+
+.add-game-form input[type="date"] {
+  color-scheme: dark;
 }
 
 .add-game-form textarea {
