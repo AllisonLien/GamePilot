@@ -72,3 +72,12 @@ Deployed on Vercel: *(link to be added)*
 - POST and PUT routes are simulated — no file persistence yet (Phase 2)
 - EJS template views coming in Phase 2
 - Images use placeholder URLs
+
+
+Github:https://github.com/AllisonLien/GamePilot
+
+Trellol:https://trello.com/invite/b/6a2313929711283072bcf4b0/ATTI3187bbcb0f9f84760b99ce571296d51416C89CAB/gamepilot
+
+vercel:https://game-pilot.vercel.app/
+
+Postman collection:https://web.postman.co/workspace/My-Workspace~6d5b9cc1-f3e7-4534-8f67-9133ecc414b2/collection/55901536-3e6ba609-6277-464a-98a9-741163134d59?action=share&source=copy-link&creator=55901536

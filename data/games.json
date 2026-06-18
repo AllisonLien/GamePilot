@@ -39567,5 +39567,53 @@
     "summary": "Join Emmet and an unlikely group of resistance fighters in their heroic quest to thwart Lord Business' evil plans - a mission that Emmet is hopelessly and hilariously unprepared for. It's a wild ride with a surprising mix of over 90 playable characters including Batman, Superman, Wonder Woman, the Green Ninja, Gandalf, Shakespeare, Cleopatra and more.",
     "imageUrl": "https://placehold.co/300x400/1a1d2e/6c63ff?text=The%20LEGO%20Movie%20Videogame",
     "isActive": true
+  },
+  {
+    "id": 1513,
+    "title": "test",
+    "releaseDate": "Jun 28, 2026",
+    "developer": [
+      "Unknown"
+    ],
+    "genres": [
+      "Fighting"
+    ],
+    "rating": {
+      "score": 4.8,
+      "reviewCount": "0"
+    },
+    "communityStats": {
+      "plays": "0",
+      "playing": "0",
+      "backlogs": "0",
+      "wishlist": "0"
+    },
+    "summary": "No summary available.",
+    "imageUrl": "https://placehold.co/300x400/1a1d2e/6c63ff?text=test",
+    "isActive": true
+  },
+  {
+    "id": 1514,
+    "title": "test2",
+    "releaseDate": "Mar 2, 2017",
+    "developer": [
+      "Unknown"
+    ],
+    "genres": [
+      "Action"
+    ],
+    "rating": {
+      "score": 3,
+      "reviewCount": "0"
+    },
+    "communityStats": {
+      "plays": "0",
+      "playing": "0",
+      "backlogs": "0",
+      "wishlist": "0"
+    },
+    "summary": "No summary available.",
+    "imageUrl": "https://placehold.co/300x400/1a1d2e/6c63ff?text=test2",
+    "isActive": true
   }
 ]
