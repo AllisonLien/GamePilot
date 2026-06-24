@@ -1,0 +1,356 @@
+{
+  "info": {
+    "_postman_id": "3e6ba609-6277-464a-98a9-741163134d59",
+    "name": "Game Pliot_API Document",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55901536",
+    "_collection_link": "https://go.postman.co/collection/55901536-3e6ba609-6277-464a-98a9-741163134d59?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "home page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "paginated game list",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/games?page=1&perPage=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "games"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "perPage",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Game detail page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/games/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "games",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search/filter games",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/games/search?genre=Indie&minRating=4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "games",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "genre",
+              "value": "Indie"
+            },
+            {
+              "key": "minRating",
+              "value": "4"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Paginated JSON list",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/games?page=1&perPage=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "games"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "perPage",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Single game JSON_success",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/games/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "games",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Single game JSON_success Copy",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/games/99999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "games",
+            "99999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "App health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/status",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "whole json list",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/games",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "games"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update rating/isActive",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rating\": 4.8,\n  \"isActive\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/games/1513",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "games",
+            "1513"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Submit suggestion _successful",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"test_Elden Ring\",\n  \"genre\": \"Action RPG\",\n  \"rating\": 4.9\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/games/suggest",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "games",
+            "suggest"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Submit suggestion _error",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"genre\": \"Action RPG\",\n  \"rating\": 4.9\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/games/suggest",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "games",
+            "suggest"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Submit game suggestion form",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "title",
+              "value": "test2",
+              "type": "text",
+              "uuid": "b2bfcaee-9850-40c8-af0b-5641b2c7f143"
+            },
+            {
+              "key": "genre",
+              "value": "Action",
+              "type": "text",
+              "uuid": "53e31575-621a-4e49-9d0f-6352d89d0fac"
+            },
+            {
+              "key": "releaseDate",
+              "value": "2017-03-03",
+              "type": "text",
+              "uuid": "9cf18712-71b1-4ea9-b7fa-e6cb9fa83f6b"
+            },
+            {
+              "key": "rating",
+              "value": "3",
+              "type": "text",
+              "uuid": "8755662f-ffa0-45bd-9784-22c8ddcab551"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/games",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "games"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
