@@ -72,8 +72,11 @@ function getAllGenres() {
 
 function addGame(newGame) {
   games.push(newGame);
-  fs.writeFileSync(gamesFilePath, JSON.stringify(games, null, 2));
-  return newGame;
+try {
+    fs.writeFileSync(gamesFilePath, JSON.stringify(games, null, 2));
+  } catch (error) {
+    console.warn("Notice: File system is read-only (e.g., on Vercel). Memory updated, but file not written.");
+  }  return newGame;
 }
 
 module.exports = { 
