@@ -50,7 +50,7 @@ router.post('/games/suggest', (req, res) => {
 
   // Phase 1: mock response 
   res.status(201).json({
-    message: 'Suggestion received ',
+    message: 'Suggestion received (mock — persistence added in Phase 2)',
     suggestion: { title, genre, rating },
   });
 });
