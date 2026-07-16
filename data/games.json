@@ -39579,7 +39579,7 @@
       "Fighting"
     ],
     "rating": {
-      "score": 4.8,
+      "score": 4.7,
       "reviewCount": "0"
     },
     "communityStats": {
@@ -39614,6 +39614,78 @@
     },
     "summary": "No summary available.",
     "imageUrl": "https://placehold.co/300x400/1a1d2e/6c63ff?text=test2",
+    "isActive": true
+  },
+  {
+    "id": 1515,
+    "title": "test2",
+    "releaseDate": "Mar 2, 2017",
+    "developer": [
+      "Unknown"
+    ],
+    "genres": [
+      "Action"
+    ],
+    "rating": {
+      "score": 3,
+      "reviewCount": "0"
+    },
+    "communityStats": {
+      "plays": "0",
+      "playing": "0",
+      "backlogs": "0",
+      "wishlist": "0"
+    },
+    "summary": "No summary available.",
+    "imageUrl": "https://placehold.co/300x400/1a1d2e/6c63ff?text=test2",
+    "isActive": true
+  },
+  {
+    "id": 1516,
+    "title": "test2",
+    "releaseDate": "Mar 2, 2017",
+    "developer": [
+      "Unknown"
+    ],
+    "genres": [
+      "Action"
+    ],
+    "rating": {
+      "score": 3,
+      "reviewCount": "0"
+    },
+    "communityStats": {
+      "plays": "0",
+      "playing": "0",
+      "backlogs": "0",
+      "wishlist": "0"
+    },
+    "summary": "No summary available.",
+    "imageUrl": "https://placehold.co/300x400/1a1d2e/6c63ff?text=test2",
+    "isActive": true
+  },
+  {
+    "id": 1517,
+    "title": "weqt",
+    "releaseDate": "Jun 9, 2026",
+    "developer": [
+      "Unknown"
+    ],
+    "genres": [
+      "Arcade"
+    ],
+    "rating": {
+      "score": 3,
+      "reviewCount": "0"
+    },
+    "communityStats": {
+      "plays": "0",
+      "playing": "0",
+      "backlogs": "0",
+      "wishlist": "0"
+    },
+    "summary": "No summary available.",
+    "imageUrl": "https://placehold.co/300x400/1a1d2e/6c63ff?text=weqt",
     "isActive": true
   }
 ]

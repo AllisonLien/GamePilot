@@ -35,6 +35,7 @@ function getAllGames() {
   return games;
 }
 
+
 // ── get one game by id 
 function getGameById(id) {
   const numId = parseInt(id, 10);
