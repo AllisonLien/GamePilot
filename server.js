@@ -1,6 +1,14 @@
 // server.js
 require('dotenv').config();
 
+const mongoose = require('mongoose');
+
+// ── connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('MongoDB connection error:', err));
+
+//
 const express = require('express');
 const path    = require('path');
 const logger  = require('./middleware/logger');

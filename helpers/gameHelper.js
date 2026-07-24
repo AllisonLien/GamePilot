@@ -1,15 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+// helpers/gameHelper.js
+const Game = require('../models/Game');
 
-const gamesFilePath = path.join(__dirname, '../data/games.json');
-const games = require(gamesFilePath);
-
-/**
- * Returns a page of items plus metadata.
- * @param {Array}  data     - array to paginate
- * @param {number} page     - 1-based page number
- * @param {number} perPage  - items per page
- */
+// ── paginate (stays the same — works on any array)
 function paginate(data, page, perPage) {
   const totalRecords = data.length;
   const totalPages   = Math.ceil(totalRecords / perPage);
@@ -30,61 +22,50 @@ function paginate(data, page, perPage) {
   };
 }
 
-// ── get all games 
-function getAllGames() {
-  return games;
+// ── get all games
+async function getAllGames() {
+  return await Game.find({}).lean();
 }
 
-
-// ── get one game by id 
-function getGameById(id) {
+// ── get one game by id
+async function getGameById(id) {
   const numId = parseInt(id, 10);
-  return games.find((g) => g.id === numId) || null;
+  return await Game.findOne({ id: numId }).lean();
 }
 
-// ── search / filter 
-/**
- Filters games by optional genre and/or minimum rating.
- * Both params are optional; passing neither returns all games.
- */
-function filterGames({ genre, minRating }) {
-  let results = games;
+// ── search / filter
+async function filterGames({ genre, minRating }) {
+  const query = {};
 
   if (genre) {
-    const q = genre.toLowerCase();
-    results = results.filter((g) =>
-      g.genres.some((gen) => gen.toLowerCase().includes(q))
-    );
+    query.genres = { $regex: genre, $options: 'i' };
   }
 
   if (minRating !== undefined && !isNaN(minRating)) {
-    const min = parseFloat(minRating);
-    results = results.filter((g) => g.rating.score >= min);
+    query['rating.score'] = { $gte: parseFloat(minRating) };
   }
 
-  return results;
+  return await Game.find(query).lean();
 }
 
-function getAllGenres() {
-  const genreSet = new Set();
-  games.forEach((g) => g.genres.forEach((gen) => genreSet.add(gen)));
-  return Array.from(genreSet).sort();
+// ── get all genres
+async function getAllGenres() {
+  const genres = await Game.distinct('genres');
+  return genres.sort();
 }
 
-function addGame(newGame) {
-  games.push(newGame);
-try {
-    fs.writeFileSync(gamesFilePath, JSON.stringify(games, null, 2));
-  } catch (error) {
-    console.warn("Notice: File system is read-only (e.g., on Vercel). Memory updated, but file not written.");
-  }  return newGame;
+// ── add a new game
+async function addGame(newGame) {
+  const game = new Game(newGame);
+  await game.save();
+  return game;
 }
 
-module.exports = { 
-  getAllGames, 
-  getGameById, 
-  filterGames, 
-  getAllGenres, 
+module.exports = {
+  getAllGames,
+  getGameById,
+  filterGames,
+  getAllGenres,
   paginate,
   addGame
 };
