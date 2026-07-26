@@ -7,6 +7,22 @@
       <li><a href="/games">Browse</a></li>
       <li><a href="/games/search">Search</a></li>
       <li><a href="/games/add">Suggest Game</a></li>
+<% if (user) { %>
+    <li class="dropdown">
+      <a href="#" class="dropbtn"><%= user.displayName || user.username %> ▾</a>
+      <div class="dropdown-content">
+  <a href="/auth/profile">My Profile</a>
+  <a href="/auth/favorites">My Favorites</a>
+  <form action="/auth/logout" method="POST">
+    <button type="submit" class="logout-btn">Logout</button>
+  </form>
+</div>
+    </li>
+  <% } else { %>
+    <li><a href="/auth/login">Login</a></li>
+    <li><a href="/auth/register">Register</a></li>
+  <% } %>
+
     <li class="dropdown">
         <a href="#" class="dropbtn">API Tests ▾</a>
         <div class="dropdown-content">
@@ -20,3 +36,8 @@
     </ul>
   </div>
 </nav>
+<% if (flash) { %>
+  <div class="<%= flash.type === 'success' ? 'success-box' : 'error-box' %> flash-message container">
+    <%= flash.message %>
+  </div>
+<% } %>

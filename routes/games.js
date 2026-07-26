@@ -2,7 +2,8 @@
 const express = require('express');
 const router  = express.Router();
 const { getAllGames, getGameById, filterGames, getAllGenres, paginate, addGame } = require('../helpers/gameHelper');
-
+const requireAuth = require('../middleware/requireAuth');
+const User = require('../models/User');
 // GET /games
 router.get('/', async (req, res) => {
   try {
@@ -129,5 +130,33 @@ router.get('/:id', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+// POST /games/:id/favorite 
+router.post('/:id/favorite', requireAuth, async (req, res) => {
+  try {
+    const gameId = parseInt(req.params.id, 10);
+    await User.findByIdAndUpdate(req.session.userId, {
+      $addToSet: { favoriteGames: gameId },  
+    });
+    res.redirect(`/games/${gameId}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
 
+// POST /games/:id/unfavorite 
+router.post('/:id/unfavorite', requireAuth, async (req, res) => {
+  try {
+    const gameId = parseInt(req.params.id, 10);
+    await User.findByIdAndUpdate(req.session.userId, {
+      $pull: { favoriteGames: gameId },   
+    });
+    res.redirect(`/games/${gameId}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+module.exports = router;
 module.exports = router;

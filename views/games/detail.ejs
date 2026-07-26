@@ -24,10 +24,21 @@
       <!-- Info column -->
       <div class="detail-info">
 
-        <div>
-          <h1><%= game.title %></h1>
-          <p class="developer">by <%= game.developer.join(', ') %> &mdash; <%= game.releaseDate %></p>
-        </div>
+     <div>
+  <h1><%= game.title %></h1>
+  <p class="developer">by <%= game.developer.join(', ') %> &mdash; <%= game.releaseDate %></p>
+
+  <% if (user) { %>
+    <% const isFavorited = user.favoriteGames && user.favoriteGames.includes(game.id); %>
+    <form method="POST" action="/games/<%= game.id %>/<%= isFavorited ? 'unfavorite' : 'favorite' %>" class="favorite-form">
+      <button type="submit" class="btn <%= isFavorited ? 'btn-outline' : 'btn-primary' %>">
+        <%= isFavorited ? '★ Favorited' : '☆ Add to Favorites' %>
+      </button>
+    </form>
+  <% } else { %>
+    <a href="/auth/login" class="btn btn-outline favorite-form">Log in to favorite</a>
+  <% } %>
+</div>
 
         <!-- Genre tags — clicking a genre goes to search filtered by that genre -->
         <div class="tags">

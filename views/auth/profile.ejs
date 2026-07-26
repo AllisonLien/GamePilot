@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile | GamePilot</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include('../partials/header') %>
+
+  <main class="container">
+
+    <div class="page-heading">
+      <h1>My Profile</h1>
+      <p>Your account information.</p>
+    </div>
+
+    <div class="profile-box">
+      <div class="form-group">
+        <label>Username</label>
+        <p><%= user.username %></p>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <p><%= user.email %></p>
+      </div>
+
+      <div class="form-group">
+        <label>Display Name</label>
+        <p><%= user.displayName || '(not set)' %></p>
+      </div>
+
+      <div class="form-group">
+        <label>Member Since</label>
+        <p><%= user.createdAt.toDateString() %></p>
+      </div>
+    </div>
+
+    <a href="/auth/profile/edit" class="btn btn-primary">Edit Profile</a>
+<a href="/auth/profile/change-password" class="btn btn-outline">Change Password</a>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>

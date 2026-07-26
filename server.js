@@ -2,7 +2,8 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-
+const session = require('express-session');       
+const { MongoStore } = require('connect-mongo');
 // ── connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
@@ -12,9 +13,10 @@ mongoose.connect(process.env.MONGODB_URI)
 const express = require('express');
 const path    = require('path');
 const logger  = require('./middleware/logger');
-
 const gamesRouter = require('./routes/games');
 const apiRouter   = require('./routes/api');
+const authRouter  = require('./routes/auth');   
+const User = require('./models/User');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -25,6 +27,38 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger);
 
+app.use(session({
+  secret: process.env.SESSION_SECRET,  
+  resave: false,                       
+  saveUninitialized: false,            
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,  
+    collectionName: 'sessions',      
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24,       
+  },
+}));
+
+// ── user authentication middleware  
+app.use(async (req, res, next) => {
+  if (req.session.userId) {
+    try {
+      const user = await User.findById(req.session.userId);
+      res.locals.user = user;
+    } catch (err) {
+      res.locals.user = null;
+    }
+  } else {
+    res.locals.user = null;
+  }
+
+  // ── flash message
+  res.locals.flash = req.session.flash || null;
+  delete req.session.flash;
+
+  next();
+});
 // ── template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -37,6 +71,7 @@ app.get('/', (req, res) => {
 // ── routers
 app.use('/games', gamesRouter);
 app.use('/api',   apiRouter);
+app.use('/auth',  authRouter); 
 
 // ── 404 handler — Phase 2: renders views/404.ejs
 app.use((req, res) => {

@@ -467,7 +467,26 @@ footer a:hover { color: var(--accent); }
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.dropdown-content form {
+  margin: 0;
+}
 
+.dropdown-content .logout-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content .logout-btn:hover {
+  background-color: #444444;
+}
 .error-box {
   background-color: #ffeaea;
   border: 1px solid #ff6b6b;
@@ -488,6 +507,8 @@ footer a:hover { color: var(--accent); }
 
 .add-game-form input[type="text"],
 .add-game-form input[type="date"],
+.add-game-form input[type="email"],
+.add-game-form input[type="password"],
 .add-game-form textarea {
   background: var(--bg);
   border: 1px solid var(--border);
@@ -501,6 +522,8 @@ footer a:hover { color: var(--accent); }
 
 .add-game-form input[type="date"]:focus,
 .add-game-form input[type="text"]:focus,
+.add-game-form input[type="email"]:focus,
+.add-game-form input[type="password"]:focus,
 .add-game-form textarea:focus {
   border-color: var(--accent);
 }
@@ -518,4 +541,27 @@ footer a:hover { color: var(--accent); }
   margin: 0;
   padding-left: 0;
   list-style: none;
+}
+.profile-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profile-box .form-group p {
+  margin: 0;
+  font-size: 1rem;
+}
+.favorite-form {
+  margin-top: 16px;
+}
+.forgot-password-link {
+  text-align: right;
+  margin-top: -12px;
+  margin-bottom: 20px;
 }

@@ -60,6 +60,10 @@ async function addGame(newGame) {
   await game.save();
   return game;
 }
+// ── get games by an array of numeric ids (for favorites)
+async function getGamesByIds(ids) {
+  return await Game.find({ id: { $in: ids } }).lean();
+}
 
 module.exports = {
   getAllGames,
@@ -67,5 +71,6 @@ module.exports = {
   filterGames,
   getAllGenres,
   paginate,
-  addGame
+  addGame,
+  getGamesByIds   
 };

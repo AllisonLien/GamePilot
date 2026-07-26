@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | GamePilot</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include('../partials/header') %>
+
+  <main class="container">
+
+    <div class="page-heading">
+      <h1>Log In</h1>
+      <p>Welcome back! Log in to access your GamePilot account.</p>
+    </div>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="error-box">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/auth/login" class="search-form add-game-form">
+      <div class="form-group">
+        <label for="identifier">Username or Email *</label>
+        <input
+          type="text"
+          id="identifier"
+          name="identifier"
+          value="<%= formData.identifier || '' %>"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+        >
+      </div>
+
+     <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+
+    <p class="forgot-password-link">
+      <a href="/auth/forgot-password">Forgot password?</a>
+    </p>
+    <p>Don't have an account? <a href="/auth/register">Register here</a>.</p>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+
+</body>
+</html>
