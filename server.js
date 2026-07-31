@@ -17,6 +17,7 @@ const gamesRouter = require('./routes/games');
 const apiRouter   = require('./routes/api');
 const authRouter  = require('./routes/auth');   
 const User = require('./models/User');
+const apiUserRouter = require('./routes/apiUser');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger);
+app.use('/api/user', apiUserRouter);
 
 app.use(session({
   secret: process.env.SESSION_SECRET,  
